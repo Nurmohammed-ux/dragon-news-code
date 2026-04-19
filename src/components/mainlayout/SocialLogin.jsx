@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../provider/AuthContext";
 
 const SocialLogin = () => {
+  const { signInWithGoogle } = useContext(AuthContext);
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => console.log(result.user))
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div>
       <h2 className="text-xl font-bold mb-5">Login With</h2>
       {/* Google */}
-      <button className="group btn bg-white hover:bg-secondary btn-outline text-blue-500 hover:text-white font-medium mb-3 py-6 lg:px-16 flex items-center gap-2">
+      <button
+        onClick={handleGoogleSignIn}
+        className="group btn bg-white hover:bg-secondary btn-outline text-blue-500 hover:text-white font-semibold mb-3 py-6 px-24 md:px-4 lg:px-16 flex items-center gap-2"
+      >
         <span className="group-hover:bg-transparent transition">
           <svg
             aria-label="Google logo"
@@ -36,7 +50,7 @@ const SocialLogin = () => {
         Login with Google
       </button>
       {/* GitHub */}
-      <button className="group btn bg-white hover:bg-primary text-blue-500 hover:text-white btn-outline font-medium py-6 lg:px-16.25 flex items-center gap-2">
+      <button className="group btn bg-white hover:bg-primary text-blue-500 hover:text-white btn-outline font-semibold py-6  px-24.25 md:px-4 lg:px-16.25 flex items-center gap-2">
         <span className=" group-hover:bg-transparent transition">
           <svg
             aria-label="GitHub logo"

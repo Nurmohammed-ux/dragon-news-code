@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 const Header = () => {
   return (
-    <div className="flex flex-col justify-center items-center mt-12.5 mb-7.5">
+    <div className="flex flex-col justify-center items-center mt-12 mb-7.5 px-4 md:px-0">
       <img className="mb-5" src={logo} alt="The Dragon News" />
       <p className="text-accent text-[18px]">
         Journalism Without Fear or Favour

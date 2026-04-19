@@ -7,9 +7,9 @@ const Q_zone = () => {
   return (
     <div className="bg-base-200 p-4">
       <h3 className="text-xl font-bold mb-5">Q-Zone</h3>
-      <img className="mb-4" src={swimming} alt="Kids Swimming" />
-      <img className="mb-4" src={classRoom} alt="Class Room" />
-      <img className="mb-4" src={playGround} alt="Play Ground" />
+      <img className="mb-4 w-full" src={swimming} alt="Kids Swimming" />
+      <img className="mb-4 w-full" src={classRoom} alt="Class Room" />
+      <img className="mb-4 w-full" src={playGround} alt="Play Ground" />
     </div>
   );
 };

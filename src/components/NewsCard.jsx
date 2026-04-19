@@ -5,9 +5,10 @@ import {
   FaEye,
 } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-  const { title, rating, total_view, author, thumbnail_url, details, tags } =
+  const {id, title, rating, total_view, author, thumbnail_url, details, tags } =
     news;
 
   const publishedDate = new Date(author.published_date).toLocaleDateString(
@@ -92,12 +93,12 @@ const NewsCard = ({ news }) => {
         </div>
 
         {/* Read More */}
-        <a
-          href="#"
+        <Link
+          to={`/news-details/${id}`}
           className="text-orange-500 font-semibold text-sm hover:underline w-fit"
         >
           Read More
-        </a>
+        </Link>
 
         {/* Divider */}
         <div className="divider my-0" />
