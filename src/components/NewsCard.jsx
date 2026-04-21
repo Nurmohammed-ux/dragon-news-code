@@ -73,10 +73,6 @@ const NewsCard = ({ news }) => {
             src={thumbnail_url}
             alt={title}
             className="w-full h-52 object-cover"
-            onError={(e) => {
-              e.target.src =
-                "https://placehold.co/600x300?text=Image+Not+Found";
-            }}
           />
         </figure>
 

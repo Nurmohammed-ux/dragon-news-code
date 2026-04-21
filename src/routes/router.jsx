@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NewsDetails from "../pages/NewsDetails";
 import PrivateRoute from "./PrivateRoute";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,9 @@ const router = createBrowserRouter([
     element: <HomeLayout />,
     hydrateFallbackElement: (
       <div className="flex justify-center items-center h-screen text-4xl font-bold">
-        L(O)ADING...
+        L(
+        <span className="inline-block text-secondary animate-spin">O</span>
+        )ADING...
       </div>
     ),
     children: [
@@ -47,7 +50,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <h2>Error 404</h2>,
+    element: <Error />,
   },
 ]);
 
