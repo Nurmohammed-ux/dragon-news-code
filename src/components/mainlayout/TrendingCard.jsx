@@ -5,7 +5,7 @@ const dataPromise = fetch("/news.json").then((response) => response.json());
 
 const TrendingCard = () => {
   const data = use(dataPromise);
-  console.log(data);
+  // console.log(data);
   return (
     <div className="grid grid-cols-1">
       {data.map((item) => (

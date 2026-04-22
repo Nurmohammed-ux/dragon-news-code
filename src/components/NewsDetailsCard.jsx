@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const NewsDetailsCard = ({ news }) => {
   const { image_url, title, details, category_id } = news;
-  console.log(news);
+  // console.log(news);
   return (
     <div className="p-7.5 border border-gray-200 rounded-sm hover:shadow-2xl">
       <img className="w-full h-full rounded-sm" src={image_url} alt={title} />

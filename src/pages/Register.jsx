@@ -1,22 +1,28 @@
 import React, { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
-  const { createUser } = use(AuthContext);
+  const { createUser, updateUser } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
-    const photo = form.photoURL.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
     const terms = form.terms.checked;
-    console.log(name, photo, email, password, terms);
+    // console.log(name, photo, email, password, terms);
+
+    const profileData = {
+      displayName: name,
+      photoURL: photo,
+    };
 
     setError("");
 
@@ -26,7 +32,18 @@ const Register = () => {
     }
 
     createUser(email, password)
-      .then((result) => console.log(result.user))
+      .then((result) => {
+        // console.log(result.user);
+        updateUser(profileData)
+          .then((result) => {
+            // console.log(result);
+          })
+          .catch((error) => {
+            // console.log(error.message);
+            setError(error.message);
+          });
+          navigate("/");
+      })
       .catch((error) => {
         console.log(error.message);
         setError(error.message);
@@ -55,7 +72,7 @@ const Register = () => {
             <label className="label">Photo URL</label>
             <input
               type="text"
-              name="photoURL"
+              name="photo"
               required
               className="input w-full pl-8"
               placeholder="Enter your photoURL"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Header from "../components/Header/Header";
 import LatestNews from "../components/Header/LatestNews";
 import Navbar from "../components/Header/Navbar";
@@ -7,6 +7,8 @@ import LeftAside from "../components/mainlayout/LeftAside";
 import RightAside from "../components/mainlayout/RightAside";
 
 const HomeLayout = () => {
+  const { state } = useNavigation();
+  // console.log(data);
   return (
     <div className="container mx-auto lg:px-35">
       <header className="">
@@ -26,7 +28,17 @@ const HomeLayout = () => {
 
         {/* Main Content */}
         <section className="md:col-span-6 order-2 md:order-2">
-          <Outlet />
+          {state == "loading" ? (
+            <div className="flex justify-center items-center h-screen text-4xl font-bold">
+              L(
+              <span className="inline-block text-secondary animate-spin">
+                O
+              </span>
+              )ADING...
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </section>
 
         {/* Right Aside */}
