@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../provider/AuthContext";
 
 const SocialLogin = () => {
-  const { signInWithGoogle } = useContext(AuthContext);
+  const { signInWithGoogle, loginWithGithub, setUser } =
+    useContext(AuthContext);
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
@@ -12,6 +13,33 @@ const SocialLogin = () => {
       .catch((error) => {
         console.log(error.message);
       });
+  };
+
+  const handleGithubLogin = () => {
+    loginWithGithub()
+      .then((result) => {
+        const loggedInUser = result.user;
+        // console.log(user);
+        if (!loggedInUser.email) {
+          if (loggedInUser.providerData) {
+            const gitProvider = loggedInUser.providerData.find(
+              (p) => p.providerId === "github.com",
+            );
+            if (gitProvider && gitProvider.email) {
+              loggedInUser.email = gitProvider.email;
+              setUser(loggedInUser);
+              // console.log(loggedInUser);2
+            }
+          }
+        }
+
+        // If the name is missing, we can manually update it from the GitHub login data
+        //   if (!user.displayName) {
+        //     const githubUsername = result._tokenResponse.screenName; // Pulls the username
+        //     setUser({ displayName: githubUsername });
+        //   }
+      })
+      .catch((error) => console.log(error.message));
   };
 
   return (
@@ -52,7 +80,10 @@ const SocialLogin = () => {
         Login with Google
       </button>
       {/* GitHub */}
-      <button className="group btn bg-white hover:bg-primary text-blue-500 hover:text-white btn-outline font-semibold py-6  px-24.25 md:px-4 lg:px-16.25 flex items-center gap-2">
+      <button
+        onClick={handleGithubLogin}
+        className="group btn bg-white hover:bg-primary text-blue-500 hover:text-white btn-outline font-semibold py-6  px-24.25 md:px-4 lg:px-16.25 flex items-center gap-2"
+      >
         <span className=" group-hover:bg-transparent transition">
           <svg
             aria-label="GitHub logo"

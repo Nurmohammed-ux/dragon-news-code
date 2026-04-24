@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, resetForgetPassword } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const emailRef = useRef();
   // console.log(location);
   // console.log(user);
 
@@ -31,6 +32,20 @@ const Login = () => {
       });
   };
 
+  const handleForgetPassword = (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    resetForgetPassword(email)
+      .then(() => {
+        alert("Password Reset email had sent");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+        // ..
+      });
+  };
+
   return (
     <div className="card bg-base-100 m-auto mt-12 md:mt-30 pt-8 md:pt-16 pb-8 md:px-18 md:w-150 shrink-0 hover:shadow-2xl">
       <div className="card-body">
@@ -44,6 +59,7 @@ const Login = () => {
               type="email"
               name="email"
               required
+              ref={emailRef}
               className="input w-full pl-8"
               placeholder="Email"
             />
@@ -67,7 +83,9 @@ const Login = () => {
               </button>
             </div>
             <div className="mt-3">
-              <a className="link link-hover">Forgot password?</a>
+              <a onClick={handleForgetPassword} className="link link-hover">
+                Forgot password?
+              </a>
             </div>
             <button className="btn btn-neutral mt-4">Login</button>
           </fieldset>
